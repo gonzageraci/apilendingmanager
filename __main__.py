@@ -1,4 +1,4 @@
-from flask import Flask, json, jsonify, request, render_template
+from flask import Flask, json, jsonify, request
 import apiTools as api
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ def ping():
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html")
+    return "Welcome to my new API"
 
 @app.route("/yield-optimizer")
 def yields():

@@ -3,9 +3,6 @@ import requests
 import json
 import url
 
-
-
-
 def getAutofarm(bc):
     pools = {}
     r = requests.get(url.autofarm(bc)).json()
@@ -109,16 +106,16 @@ def getSwampFull():
     return pools
 
 def getGrim():
-  pools = {}
-  r1 = requests.get(url.grimTvl).json()
-  r2 = requests.get(url.grimApy).json()
-  id = 0
-  for name in r2:
-    try:
-      tvl = r1["250"][name]
-      apy = r2[name]["totalApy"]
-      pools[id] = {"name":name, "tvl": tvl, "apy":apy}
-      id = id + 1
-    except:
-      continue
-  return pools
+    pools = {}
+    r1 = requests.get(url.grimTvl).json()
+    r2 = requests.get(url.grimApy).json()
+    id = 0
+    for name in r2:
+        try:
+            tvl = r1["250"][name]
+            apy = r2[name]["totalApy"]
+            pools[id] = {"name":name, "tvl": tvl, "apy":apy}
+            id = id + 1
+        except:
+            continue    
+    return pools

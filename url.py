@@ -14,3 +14,7 @@ def swamp(bc):
 
 grimApy = "https://api.grim.finance/apy/breakdown"
 grimTvl = "https://api.grim.finance/tvl"
+"""
+polycat_tokenlist = "https://raw.githubusercontent.com/polycatfi/polycat-default-token-list/master/polycat-default.tokenlist.json"
+polycat_apr = "https://api.pangolin.exchange/pangolin/apr/"
+"""
