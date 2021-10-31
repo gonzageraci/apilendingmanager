@@ -1,5 +1,7 @@
 from flask.json import jsonify
 import requests
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+from requests import Request, Session
 import json
 import url
 
@@ -119,3 +121,51 @@ def getGrim():
         except:
             continue    
     return pools
+"""
+def penguin():
+    r1 = requests.get(url.penguinTokens).json()
+    
+    for token in r1["tokens"]:
+        address = token["address"]
+        apr = requests.get(url.penguinApr+address).json()
+        print(str(address) + "uwu" + str(apr))
+"""
+#penguin()
+
+def getCoinMarketCap():
+    parameters = {
+    'start':'1',
+    'limit':'5000',
+    'convert':'USD'
+    }
+    headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': 'a39a503a-0a40-4f20-9760-43682032cc0c',
+    }
+    session = Session()
+    session.headers.update(headers)
+    try:
+        response = session.get(url.coinmarket, params=parameters)
+        data = json.loads(response.text)
+        return(data)
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        return(e)    
+
+def getYieldyak():
+    r1 = requests.get(url.yieldyakFarms).json()
+    r2 = requests.get(url.yieldyakApy).json()
+    pools = []
+    for i in r1:
+        try:
+            symbol = i["name"]
+            address = i["address"]
+            #tvl = i["totalSupply"]
+            apy = r2[address]["apy"]
+            apr = r2[address]["apr"]
+            pool = {"symbol":symbol, "apy":apy, "apr":apr, "address":address}
+        except:
+            continue
+        pools.append(pool)
+    return pools
+
+getYieldyak()
